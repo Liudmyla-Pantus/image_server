@@ -1,29 +1,103 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="uk">
 <head>
     <meta charset="UTF-8">
-    <title>Upload</title>
+    <title>Завантаження зображення</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f6fa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            width: 350px;
+            text-align: center;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+        }
+
+        input[type="file"] {
+            margin-bottom: 15px;
+        }
+
+        button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 8px;
+            background: #4CAF50;
+            color: white;
+            cursor: pointer;
+            margin: 5px;
+        }
+
+        button:hover {
+            background: #45a049;
+        }
+
+        #preview img {
+            border-radius: 10px;
+            margin-top: 10px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+        }
+
+        #message {
+            margin-top: 10px;
+            color: #333;
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 15px;
+            text-decoration: none;
+            color: #555;
+        }
+
+        a:hover {
+            color: black;
+        }
+    </style>
+
 </head>
 <body>
-    <h1>Загрузить изображение</h1>
 
-    <form id="upload-form">
-        <input type="file" id="file-input" name="file" accept=".jpg,.jpeg,.png,.gif">
-        <button type="submit">Загрузить</button>
-    </form>
+<div class="container">
+
+    <h2>Завантажити зображення</h2>
+
+    <input type="file" id="file">
+
+    <div id="preview"></div>
+
+    <button id="uploadBtn">Завантажити</button>
+
+    <input type="text" id="currentUpload" readonly placeholder="URL зображення">
+
+    <button id="copyBtn">Копіювати посилання</button>
 
     <p id="message"></p>
 
-    <p>
-        <strong>Текущая загрузка:</strong>
-        <input type="text" id="uploaded-url" readonly style="width: 400px;">
-    </p>
-
-    <button id="copy-btn" type="button">Копия</button>
-
-    <br><br>
     <a href="/">Назад</a>
 
-    <script src="/image-uploader/js/upload.js"></script>
+</div>
+
+<script src="/static/image-uploader/js/upload.js"></script>
+
 </body>
 </html>

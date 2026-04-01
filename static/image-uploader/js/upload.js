@@ -1,52 +1,68 @@
-const form = document.getElementById('upload-form');
-const fileInput = document.getElementById('file-input');
-const message = document.getElementById('message');
-const uploadedUrlInput = document.getElementById('uploaded-url');
-const copyBtn = document.getElementById('copy-btn');
+document.addEventListener('DOMContentLoaded', () => {
+    const fileInput = document.getElementById('file');
+    const uploadBtn = document.getElementById('uploadBtn');
+    const copyBtn = document.getElementById('copyBtn');
+    const currentUpload = document.getElementById('currentUpload');
+    const message = document.getElementById('message');
+    const preview = document.getElementById('preview');
 
-form.addEventListener('submit', async (event) => {
-    event.preventDefault();
+    fileInput.addEventListener('change', () => {
+        const file = fileInput.files[0];
 
-    const file = fileInput.files[0];
-
-    if (!file) {
-        message.textContent = 'Выберите файл';
-        return;
-    }
-
-    const formData = new FormData();
-    formData.append('file', file);
-
-    try {
-        const response = await fetch('/upload', {
-            method: 'POST',
-            body: formData
-        });
-
-        const data = await response.json();
-
-        if (data.success) {
-            const fullUrl = `${window.location.origin}${data.url}`;
-            uploadedUrlInput.value = fullUrl;
-            message.textContent = 'Успешно загружено';
-        } else {
-            message.textContent = data.error || 'Ошибка загрузки';
+        if (!file) {
+            preview.innerHTML = '';
+            return;
         }
-    } catch (error) {
-        message.textContent = 'Ошибка сети';
-    }
-});
 
-copyBtn.addEventListener('click', async () => {
-    if (!uploadedUrlInput.value) {
-        message.textContent = 'Нет ссылки для копирования';
-        return;
-    }
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            preview.innerHTML = `<img src="${e.target.result}" alt="preview" style="max-width: 250px; max-height: 250px;">`;
+        };
+        reader.readAsDataURL(file);
+    });
 
-    try {
-        await navigator.clipboard.writeText(uploadedUrlInput.value);
-        message.textContent = 'Ссылка скопирована';
-    } catch (error) {
-        message.textContent = 'Ошибка копирования';
-    }
+    uploadBtn.addEventListener('click', async () => {
+        const file = fileInput.files[0];
+
+        if (!file) {
+            message.textContent = 'Оберіть файл';
+            return;
+        }
+
+        const formData = new FormData();
+        formData.append('file', file);
+
+        try {
+            const response = await fetch('/upload', {
+                method: 'POST',
+                body: formData
+            });
+
+            const data = await response.json();
+
+            if (data.success) {
+                const fullUrl = `${window.location.origin}${data.url}`;
+                currentUpload.value = fullUrl;
+                message.textContent = 'Успішно завантажено';
+            } else {
+                message.textContent = data.error || 'Помилка завантаження';
+            }
+        } catch (error) {
+            message.textContent = 'Помилка сервера';
+        }
+    });
+
+    copyBtn.addEventListener('click', async () => {
+        if (!currentUpload.value) {
+            message.textContent = 'Немає посилання для копіювання';
+            return;
+        }
+
+        try {
+            await navigator.clipboard.writeText(currentUpload.value);
+            message.textContent = 'Посилання скопійовано';
+        } catch (error) {
+            message.textContent = 'Не вдалося скопіювати';
+        }
+    });
 });

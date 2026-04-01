@@ -33,6 +33,7 @@ http://localhost:8000
 
 ## Структура проекту
 
+```
 image_server/
 ├── app.py
 ├── images/
@@ -53,6 +54,7 @@ image_server/
 ├── nginx.conf
 ├── requirements.txt
 └── README.md
+```
 
 ## Що було реалізовано
 
@@ -61,13 +63,6 @@ image_server/
 - Валідація зображень
 - REST API для отримання списку зображень
 - Динамічне оновлення сторінки через JavaScript
-
-## Запуск через Docker
-
-docker compose up --build
-
-Відкрити:
-http://localhost:8000
 
 ## Рефакторинг
 

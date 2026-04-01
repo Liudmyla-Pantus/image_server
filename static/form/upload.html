@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Upload</title>
+</head>
+<body>
+    <h1>Загрузить изображение</h1>
+
+    <form id="upload-form">
+        <input type="file" id="file-input" name="file" accept=".jpg,.jpeg,.png,.gif">
+        <button type="submit">Загрузить</button>
+    </form>
+
+    <p id="message"></p>
+
+    <p>
+        <strong>Текущая загрузка:</strong>
+        <input type="text" id="uploaded-url" readonly style="width: 400px;">
+    </p>
+
+    <button id="copy-btn" type="button">Копия</button>
+
+    <br><br>
+    <a href="/">Назад</a>
+
+    <script src="/image-uploader/js/upload.js"></script>
+</body>
+</html>
